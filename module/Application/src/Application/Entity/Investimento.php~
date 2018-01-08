@@ -1,0 +1,50 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Investimento
+ *
+ * @ORM\Table(name="investimento", indexes={@ORM\Index(name="FK_investimento_tipo_investimento", columns={"tipo_investimento_id"})})
+ * @ORM\Entity
+ */
+class Investimento
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="aplicacao", type="decimal", precision=10, scale=2, nullable=false)
+     */
+    private $aplicacao;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="data", type="date", nullable=false)
+     */
+    private $data;
+
+    /**
+     * @var \Application\Entity\TipoInvestimento
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\TipoInvestimento")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="tipo_investimento_id", referencedColumnName="id")
+     * })
+     */
+    private $tipoInvestimento;
+
+
+}
+

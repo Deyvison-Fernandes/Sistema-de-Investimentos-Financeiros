@@ -1,0 +1,196 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * TipoInvestimento
+ *
+ * @ORM\Table(name="tipo_investimento")
+ * @ORM\HasLifecycleCallbacks
+ * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Application\Entity\TipoInvestimentoRepository")
+ */
+class TipoInvestimento extends AbstractEntity
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="descricao", type="string", length=100, nullable=false)
+     */
+    private $descricao;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="rentabilidade", type="decimal", precision=2, scale=2, nullable=false)
+     */
+    private $rentabilidade;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="taxa", type="decimal", precision=2, scale=2, nullable=false)
+     */
+    private $taxa;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="periodo_aplicacao", type="integer", nullable=false)
+     */
+    private $periodoAplicacao;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="data_cadastro", type="datetime", nullable=false)
+     */
+    private $dataCadastro;
+
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set descricao
+     *
+     * @param string $descricao
+     *
+     * @return TipoInvestimento
+     */
+    public function setDescricao($descricao)
+    {
+        $this->descricao = $descricao;
+
+        return $this;
+    }
+
+    /**
+     * Get descricao
+     *
+     * @return string
+     */
+    public function getDescricao()
+    {
+        return $this->descricao;
+    }
+
+    /**
+     * Set rentabilidade
+     *
+     * @param string $rentabilidade
+     *
+     * @return TipoInvestimento
+     */
+    public function setRentabilidade($rentabilidade)
+    {
+        if(!is_numeric($rentabilidade))
+            $rentabilidade = str_replace(',', '.',str_replace('.', '', $rentabilidade));
+
+        $this->rentabilidade = $rentabilidade;
+
+        return $this;
+    }
+
+    /**
+     * Get rentabilidade
+     *
+     * @return string
+     */
+    public function getRentabilidade()
+    {
+        return $this->rentabilidade;
+    }
+
+    /**
+     * Set taxa
+     *
+     * @param string $taxa
+     *
+     * @return TipoInvestimento
+     */
+    public function setTaxa($taxa)
+    {
+        if(!is_numeric($taxa))
+            $taxa = str_replace(',', '.',str_replace('.', '', $taxa));
+
+        $this->taxa = $taxa;
+
+        return $this;
+    }
+
+    /**
+     * Get taxa
+     *
+     * @return string
+     */
+    public function getTaxa()
+    {
+        return $this->taxa;
+    }
+
+    /**
+     * Set periodoAplicacao
+     *
+     * @param integer $periodoAplicacao
+     *
+     * @return TipoInvestimento
+     */
+    public function setPeriodoAplicacao($periodoAplicacao)
+    {
+        $this->periodoAplicacao = $periodoAplicacao;
+
+        return $this;
+    }
+
+    /**
+     * Get periodoAplicacao
+     *
+     * @return integer
+     */
+    public function getPeriodoAplicacao()
+    {
+        return $this->periodoAplicacao;
+    }
+
+    /**
+     * Set dataCadastro
+     *
+     * @ORM\PrePersist
+     * @return TipoInvestimento
+     */
+    public function setDataCadastro()
+    {
+        $this->dataCadastro = new \DateTime();
+
+        return $this;
+    }
+
+    /**
+     * Get dataCadastro
+     *
+     * @return \DateTime
+     */
+    public function getDataCadastro()
+    {
+        return $this->dataCadastro;
+    }
+}
